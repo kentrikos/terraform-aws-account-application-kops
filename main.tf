@@ -23,32 +23,41 @@ module "vpc" {
   }                                                                             
 }
 
+
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "https://github.com/kentrikos/terraform-aws-kops.git" 
+  source = "github.com/kentrikos/terraform-aws-kops"
 
   cluster_name_prefix        = "${var.product_domain_name}-${var.environment_type}"
   region                     = "${var.region}"
   vpc_id                     = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
   azs                        = "${join(",", var.azs)}"
   subnets                    = "${join(",", var.k8s_private_subnets)}"
+
   node_count                 = "${var.k8s_node_count}"
-  iam_cross_account_role_arn = "arn:aws:iam::${var.application_aws_account_number}:role/kops-management-node-${var.product_domain_name}-${var.environment_type}.k8s.local"
+  master_instance_type       = "${var.k8s_master_instance_type}"
+  node_instance_type         = "${var.k8s_node_instance_type}"
+
+  masters_iam_policies_arns  = "${var.k8s_masters_iam_policies_arns}"
+  nodes_iam_policies_arns    = "${var.k8s_nodes_iam_policies_arns}"
+
+  iam_cross_account_role_arn = "${var.iam_cross_account_role_arn}"
 }
 
-# Kinesis integration
-module "kinesis_vpc_endpoint" {
-  source = "https://github.com/kentrikos/terraform-aws-logging.git"
 
-  region     = "${var.region}"
-  subnet_ids = "${module.vpc.private_subnets}"
-  tags       = "${var.tags}"
-}
+## Kinesis integration
+#module "kinesis_vpc_endpoint" {
+#  source = "FIXME"
+#
+#  region     = "${var.region}"
+#  subnet_ids = "${module.vpc.private_subnets}"
+#  tags       = "${var.tags}"
+#}
 
-module "cross-account-kinesis-role" {
-  source = "https://github.com/kentrikos/tf-aws-cross-account-assume-role.git"  #UPDATE_ME: with repo name for github given FIXME: this needs to be integrated with IAM generating/handling.
-
-  role_name       = "${var.kinesis_cross_account_role_name}"
-  assume_role_arn = "${var.transit_kinesis_role_arn}"
-  trusted_roles   = "${var.advanced_account_trusted_roles}"  #TODO: output from the kubernetes module could provide these roles.
-}
+#module "cross-account-kinesis-role" {
+#  source = "FIXME"
+#
+#  role_name       = "${var.kinesis_cross_account_role_name}"
+#  assume_role_arn = "${var.transit_kinesis_role_arn}"
+#  trusted_roles   = "${var.advanced_account_trusted_roles}"  #TODO: output from the kubernetes module could provide these roles.
+#}

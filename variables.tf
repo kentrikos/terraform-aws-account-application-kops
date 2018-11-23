@@ -6,26 +6,25 @@ variable "environment_type" {
   description = "Type of environment (e.g. test, int, e2e, prod)"
 }
 
-variable "application_aws_account_number" {
-  description = "AWS application account number (without hyphens)"
-}
-
 variable "vpc_id" {
   description = "ID of existing VPC where cluster will be deployed (if not specified new VPC will be created"
 }
 
 variable "new_vpc_cidr" {
-   description = "CIDR range for VPC."
+  description = "CIDR range for VPC."
+  default = ""
 }
 
 variable "new_vpc_private_subnets" {
   description = "(Optional) A list of private subnets expressed in CIDR notation. This list size must match the list size of availability zones."
   type        = "list"
+  default = []
 }
 
 variable "new_vpc_public_subnets" {
   description = "(Optional) A list of public subnets expressed in CIDR notation. This list size must match the list size of availability zones."
   type        = "list"
+  default = []
 }
 
 variable "new_vpc_elastic_ips" {
@@ -36,7 +35,6 @@ variable "new_vpc_elastic_ips" {
 
 variable "region" {
   description = "AWS region"
-  default     = "eu-central-1"
 }
 
 variable "azs" {
@@ -54,21 +52,39 @@ variable "k8s_node_count" {
   default     = "1"
 }
 
-variable "advanced_account_trusted_roles" {
-  type = "list"
+variable "k8s_master_instance_type" {
+  description = "Instance type (size) for master nodes"
+  default     = "m4.large"
+}
+
+variable "k8s_node_instance_type" {
+  description = "Instance type (size) for worker nodes"
+  default     = "m4.large"
 }
 
 variable "iam_cross_account_role_arn" {
   description = "Cross-account role to assume before deploying the cluster"
 }
 
-variable "kinesis_cross_account_role_name" {}
-variable "project_environment" {}
-variable "project_name" {}
-
-variable "tags" {
-  type    = "map"
-  default = {}
+variable "k8s_masters_iam_policies_arns" {
+  description = "List of existing IAM policies that will be attached to instance profile for master nodes (EC2 instances)"
+  type        = "list"
 }
 
-variable "transit_kinesis_role_arn" {}
+variable "k8s_nodes_iam_policies_arns" {
+  description = "List of existing IAM policies that will be attached to instance profile for worker nodes (EC2 instances)"
+  type        = "list"
+}
+
+#variable "advanced_account_trusted_roles" {
+#  type = "list"
+#  default = []
+#}
+
+#variable "kinesis_cross_account_role_name" {}
+#variable "tags" {
+#  type    = "map"
+#  default = {}
+#}
+#
+#variable "transit_kinesis_role_arn" {}
