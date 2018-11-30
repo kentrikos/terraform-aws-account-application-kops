@@ -12,25 +12,25 @@ variable "vpc_id" {
 
 variable "new_vpc_cidr" {
   description = "CIDR range for VPC."
-  default = ""
+  default     = ""
 }
 
 variable "new_vpc_private_subnets" {
   description = "(Optional) A list of private subnets expressed in CIDR notation. This list size must match the list size of availability zones."
   type        = "list"
-  default = []
+  default     = []
 }
 
 variable "new_vpc_public_subnets" {
   description = "(Optional) A list of public subnets expressed in CIDR notation. This list size must match the list size of availability zones."
   type        = "list"
-  default = []
+  default     = []
 }
 
 variable "new_vpc_elastic_ips" {
   description = "(Optional) A list of existing elastic ip addresses to assign to the VPC"
-  type    = "list"
-  default = []
+  type        = "list"
+  default     = []
 }
 
 variable "region" {
@@ -81,6 +81,7 @@ variable "k8s_nodes_iam_policies_arns" {
 #  default = []
 #}
 
+
 #variable "kinesis_cross_account_role_name" {}
 #variable "tags" {
 #  type    = "map"
@@ -88,3 +89,4 @@ variable "k8s_nodes_iam_policies_arns" {
 #}
 #
 #variable "transit_kinesis_role_arn" {}
+
