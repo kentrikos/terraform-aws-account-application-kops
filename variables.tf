@@ -76,6 +76,11 @@ variable "k8s_nodes_iam_policies_arns" {
   type        = "list"
 }
 
+variable "k8s_aws_ssh_keypair_name" {
+  description = "Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified)"
+  default     = ""
+}
+
 #variable "advanced_account_trusted_roles" {
 #  type = "list"
 #  default = []
