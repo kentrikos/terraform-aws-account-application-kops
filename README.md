@@ -64,3 +64,4 @@ module "application" {
 | k8s\_masters\_iam\_policies\_arns | List of existing IAM policies that will be attached to instance profile for master nodes (EC2 instances) | list | n/a | yes |
 | k8s\_nodes\_iam\_policies\_arns | List of existing IAM policies that will be attached to instance profile for worker nodes (EC2 instances) | list | n/a | yes |
 | k8s\_aws\_ssh\_keypair\_name | Optional name of existing SSH keypair on AWS account, to be used for cluster instances (will be generated if not specified) | string | `""` | no |
+| k8s_linux_distro | Linux distribution for K8s cluster instances (supported values: debian, amzn2) | string | `debian` | no |
