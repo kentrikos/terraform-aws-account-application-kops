@@ -25,7 +25,7 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-kops"
+  source = "github.com/kentrikos/terraform-aws-kops?ref=0.1.0"
 
   cluster_name_prefix = "${var.product_domain_name}-${var.environment_type}"
   region              = "${var.region}"
@@ -37,7 +37,7 @@ module "kubernetes_cluster_application" {
   master_instance_type = "${var.k8s_master_instance_type}"
   node_instance_type   = "${var.k8s_node_instance_type}"
   aws_ssh_keypair_name = "${var.k8s_aws_ssh_keypair_name}"
-  linux_distro         = "${var.k8s_linux_distro}" 
+  linux_distro         = "${var.k8s_linux_distro}"
 
   masters_iam_policies_arns = "${var.k8s_masters_iam_policies_arns}"
   nodes_iam_policies_arns   = "${var.k8s_nodes_iam_policies_arns}"
