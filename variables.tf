@@ -81,6 +81,11 @@ variable "k8s_aws_ssh_keypair_name" {
   default     = ""
 }
 
+variable "k8s_linux_distro" {
+  description = "Linux distribution for K8s cluster instances (supported values: debian, amzn2)"
+  default     = "debian"
+}
+
 #variable "advanced_account_trusted_roles" {
 #  type = "list"
 #  default = []
