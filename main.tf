@@ -25,9 +25,9 @@ module "vpc" {
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
-  source = "github.com/kentrikos/terraform-aws-kops?ref=0.1.0"
+  source = "github.com/kentrikos/terraform-aws-kops?ref=multi_deployment"
 
-  cluster_name_prefix = "${var.product_domain_name}-${var.environment_type}"
+  cluster_name_prefix = "${var.region}-${var.product_domain_name}-${var.environment_type}"
   region              = "${var.region}"
   vpc_id              = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
   azs                 = "${join(",", var.azs)}"
