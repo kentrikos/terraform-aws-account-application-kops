@@ -2,10 +2,10 @@ locals {
   cluster_name = "${var.region}-${var.product_domain_name}-${var.environment_type}"
 
   common_tags = {
-    Terraform   = true
-    ProjectName = "${var.product_domain_name}"
-    Environment = "${var.environment_type}"
-    Cluster     = "${local.cluster_name}"
+    Terraform         = true
+    ProductDomainName = "${var.product_domain_name}"
+    EnvironmentType   = "${var.environment_type}"
+    Cluster           = "${local.cluster_name}"
   }
 }
 
@@ -41,8 +41,6 @@ module "kubernetes_cluster_application" {
   desired_worker_nodes      = "${var.k8s_node_count}"
   worker_node_instance_type = "${var.k8s_node_instance_type}"
   key_name                  = "${var.k8s_aws_ssh_keypair_name}"
-
-  iam_cross_account_role_arn = "${var.iam_cross_account_role_arn}"
 
   tags = "${local.common_tags}"
 }
