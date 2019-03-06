@@ -85,18 +85,3 @@ variable "k8s_linux_distro" {
   description = "Linux distribution for K8s cluster instances (supported values: debian, amzn2)"
   default     = "debian"
 }
-
-#variable "advanced_account_trusted_roles" {
-#  type = "list"
-#  default = []
-#}
-
-
-#variable "kinesis_cross_account_role_name" {}
-#variable "tags" {
-#  type    = "map"
-#  default = {}
-#}
-#
-#variable "transit_kinesis_role_arn" {}
-

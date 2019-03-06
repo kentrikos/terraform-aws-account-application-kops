@@ -5,10 +5,8 @@ Most important elements of the environment:
 
 * VPC (module can create a new one or use existing one if vpc_id is passed as a parameter)
 * Kubernetes cluster
-* VPC Endpoint (Interface) - kinesis streams service (to be tested/improved)
 
 # Notes
-* logging part needs tests/improvements
 
 # Usage
 
@@ -36,10 +34,6 @@ module "application" {
   k8s_masters_iam_policies_arns    = "${var.k8s_masters_iam_policies_arns}"
   k8s_nodes_iam_policies_arns      = "${var.k8s_nodes_iam_policies_arns}"
 
-  # FIXME: temporarily disabled
-  #transit_kinesis_role_arn        = "${var.transit_kinesis_role_arn}"
-  #kinesis_cross_account_role_name = "${var.kinesis_cross_account_role_name}"
-  #advanced_account_trusted_roles  = "${var.advanced_account_trusted_roles}"
 }
 ```
 
