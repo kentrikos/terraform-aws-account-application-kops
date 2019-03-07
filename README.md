@@ -1,10 +1,10 @@
-# A Terraform module to create "application" type of environment with EKS-managed Kubernetes
+# A Terraform module to create "application" type of environment.
 
 This module will create an environment suitable for "application" type of AWS account.
 Most important elements of the environment:
 
 * VPC (module can create a new one or use existing one if vpc_id is passed as a parameter)
-* Kubernetes cluster, deployed using AWS EKS
+* Kubernetes cluster
 * VPC Endpoint (Interface) - kinesis streams service (to be tested/improved)
 
 # Notes
@@ -17,8 +17,8 @@ Most important elements of the environment:
 
 ## Use existing VPC in application account:
 ```hcl
-module "application" {
-  source = "github.com/kentrikos/terraform-aws-account-application-eks"
+module "application" {                                                          
+  source = "github.com/kentrikos/terraform-aws-account-application"
 
   product_domain_name              = "${var.product_domain_name}"
   environment_type                 = "${var.environment_type}"
