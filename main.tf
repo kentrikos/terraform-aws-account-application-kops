@@ -1,27 +1,3 @@
-# VPC for Kubernetes cluster:
-module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  create_vpc = "${var.vpc_id != "" ? false : true}"
-
-  name = "${var.product_domain_name}-${var.environment_type}"
-
-  reuse_nat_ips          = "${length(var.new_vpc_elastic_ips) == 0 ? false : true}"
-  external_nat_ip_ids    = ["${var.new_vpc_elastic_ips}"]
-  cidr                   = "${var.new_vpc_cidr}"
-  azs                    = "${var.azs}"
-  public_subnets         = "${var.new_vpc_public_subnets}"
-  private_subnets        = "${var.new_vpc_private_subnets}"
-  enable_nat_gateway     = true
-  single_nat_gateway     = false
-  one_nat_gateway_per_az = true
-
-  tags = {
-    Terraform         = "true"
-    ProductDomainName = "${var.product_domain_name}"
-    EnvironmentType   = "${var.environment_type}"
-  }
-}
 
 # Kubernetes cluster:
 module "kubernetes_cluster_application" {
@@ -29,7 +5,7 @@ module "kubernetes_cluster_application" {
 
   cluster_name_prefix = "${var.region}-${var.product_domain_name}-${var.environment_type}"
   region              = "${var.region}"
-  vpc_id              = "${var.vpc_id != "" ? var.vpc_id : module.vpc.vpc_id}"
+  vpc_id              = "${var.vpc_id != "" ? var.vpc_id : ""}"
   azs                 = "${join(",", var.azs)}"
   subnets             = "${join(",", var.k8s_private_subnets)}"
 
